@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Currency Converter</title>
+
+  <!-- Stable Vue CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.4.15/dist/vue.global.prod.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="app">
+  <h1>Currency Converter App</h1>
+
+  <!-- SECTION 1 : CONVERTER -->
+  <section class="box">
+    <h2>Converter</h2>
+
+    <input type="number" v-model.number="amount" />
+
+    <select v-model="fromCurrency">
+      <option v-for="c in currencyCodes" :key="c" :value="c">
+        {{ c }}
+      </option>
+    </select>
+
+    <span>→</span>
+
+    <select v-model="toCurrency">
+      <option v-for="c in currencyCodes" :key="c" :value="c">
+        {{ c }}
+      </option>
+    </select>
+
+    <button @click="convert">Convert</button>
+
+    <p class="result" v-if="result !== null">
+      Result: {{ result }}
+    </p>
+  </section>
+
+  <!-- SECTION 2 : LIST -->
+  <section class="box">
+    <h2>Currency Rates</h2>
+
+    <input
+      type="text"
+      placeholder="Filter by currency or rate"
+      v-model="search"
+    />
+
+    <table>
+      <thead>
+        <tr>
+          <th>Currency</th>
+          <th>Online Sell Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(rate, code) in filteredRates" :key="code">
+          <td>{{ code }}</td>
+          <td>{{ rate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
